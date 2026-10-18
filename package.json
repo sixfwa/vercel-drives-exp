@@ -1,0 +1,30 @@
+{
+  "name": "sandbox-drives-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Vercel Sandbox: npm install with and without a Drive-backed cache",
+  "scripts": {
+    "demo:without": "tsx --env-file=.env.local without-drives.ts",
+    "demo:with": "tsx --env-file=.env.local with-drives.ts",
+    "demo:snapshot": "tsx --env-file=.env.local with-snapshot.ts",
+    "demo:all": "for s in small medium large mega; do npm run -s demo:without -- $s 5 && npm run -s demo:with -- $s 5 && npm run -s demo:snapshot -- $s 5 || exit 1; echo; done",
+    "cleanup": "tsx --env-file=.env.local cleanup.ts",
+    "exp:sequential": "tsx --env-file=.env.local experiment/run.ts sequential",
+    "exp:concurrent": "tsx --env-file=.env.local experiment/run.ts concurrent",
+    "exp:refresh": "tsx --env-file=.env.local experiment/run.ts refresh",
+    "exp:day2": "tsx --env-file=.env.local experiment/run.ts day2",
+    "exp:teardown": "tsx --env-file=.env.local experiment/run.ts teardown",
+    "exp:all": "npm run -s exp:sequential && npm run -s exp:concurrent && npm run -s exp:refresh",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vercel/sandbox": "^3.6.1",
+    "vercel": "^63.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}
